@@ -1,0 +1,94 @@
+<div class="main-container">
+  <div class="search-add">
+    <div class="add-entry">
+      <button (click)="onAddEntry()">Add Entry</button>
+    </div>
+    <div class="search">
+      <input type="text" placeholder="Search...">
+    </div>
+  </div>
+  <td class="list-employees">
+    <table>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Phone</th>
+        <th>City</th>
+        <th>Address Line 1</th>
+        <th>Address Line 2</th>
+        <th>Postal Code</th>
+        <th>Edit</th>
+      </tr>
+      <tr *ngFor="let emp of employeeData ; let  i=index">
+        <td>{{emp.id}}</td>
+
+        <td *ngIf="enableEditIndex != i">{{emp.name}}</td>
+        <ng-container>
+          <td *ngIf="enableEdit && enableEditIndex == i">
+            <input type="text" [(ngModel)]="emp.name" />
+          </td>
+        </ng-container>
+
+        <td *ngIf="enableEditIndex != i">{{emp.phone}}</td>
+        <ng-container>
+          <td *ngIf="enableEdit && enableEditIndex == i">
+            <input type="text" [(ngModel)]="emp.phone" />
+          </td>
+        </ng-container>
+
+        <td *ngIf="enableEditIndex != i">{{emp.address.city}}</td>
+        <ng-container>
+          <td *ngIf="enableEdit && enableEditIndex == i">
+            <input type="text" [(ngModel)]="emp.address.city" />
+          </td>
+        </ng-container>
+
+        <td *ngIf="enableEditIndex != i">{{emp.address.address_line1}}</td>
+        <ng-container>
+          <td *ngIf="enableEdit && enableEditIndex == i">
+            <input type="text" [(ngModel)]="emp.address.address_line1" />
+          </td>
+        </ng-container>
+
+
+        <td *ngIf="enableEditIndex != i">{{emp.address.address_line2}}</td>
+        <ng-container>
+          <td *ngIf="enableEdit && enableEditIndex == i">
+            <input type="text" [(ngModel)]="emp.address.address_line2" />
+          </td>
+        </ng-container>
+
+
+
+        <td *ngIf="enableEditIndex != i"> {{emp.address.postal_code}}</td>
+        <ng-container>
+          <td *ngIf="enableEdit && enableEditIndex == i">
+            <input type="text" [(ngModel)]="emp.address.postal_code" />
+          </td>
+        </ng-container>
+
+        <td>
+          <button *ngIf="enableEdit && enableEditIndex == i" (click)="enableEdit=false; cancel()"
+            class="btn page-secondary-action-btn">Cancel</button>
+          <button *ngIf="enableEdit && enableEditIndex == i" id="saveBtn" class="btn page-primary-action-btn"
+            (click)="saveSegment(emp.id,emp.name,emp.phone,emp.address.city,emp.address.address1,emp.address.address2,emp.address.postal_code)"
+            type="submit">Save</button>
+          <a href="#" class="table-row-action edit-action" *ngIf="i != enableEditIndex || enableEditIndex == null"
+            (click)="enableEditMethod($event, i)">
+            edit
+          </a>
+        </td>
+
+      </tr>
+      <ng-container *ngIf="addEntry">
+        <td>{{empLength + 1}}</td>
+        <td><input type="text" [(ngModel)]="name" /></td>
+        <td><input type="number" [(ngModel)]="phone" /></td>
+        <td><input type="text" [(ngModel)]="city" /></td>
+        <td><input type="text" [(ngModel)]="address1" /></td>
+        <td><input type="text" [(ngModel)]="address2" /></td>
+        <td><input type="text" [(ngModel)]="postalCode" /></td>
+        <td><button (click)="onAdd(empLength + 1)">Add</button> <button (click)="onCancelEntry()">Cancel</button></td>
+      </ng-container>
+    </table>
+</div>

@@ -1,0 +1,69 @@
+.main-container {
+  width: 100%;
+  height: 90vh;
+  border: 1px solid;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .search-add {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    .add-entry {
+      width: 90px;
+    }
+    .search {
+      width: 100px;
+    }
+  }
+  .list-employees {
+    width: 80%;
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    td,
+    th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+      width: 100px;
+      height: 50px;
+    }
+    td:first-child {
+      width: 20px;
+    }
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+    th:last-child {
+      width: 180px;
+    }
+  }
+  input[type='text'],
+  select {
+    width: 70px;
+    padding: 6px 10px;
+    // margin: 4px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    outline: none;
+  }
+  input[type='number'],
+  select {
+    width: 70px;
+    padding: 6px 10px;
+    // margin: 4px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    outline: none;
+  }
+}
