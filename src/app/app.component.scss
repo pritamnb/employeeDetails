@@ -1,21 +1,42 @@
 .main-container {
   width: 100%;
   height: 90vh;
-  border: 1px solid;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   .search-add {
-    width: 100%;
+    width: 80%;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     padding: 20px;
     .add-entry {
-      width: 90px;
+      width: 200px;
+      .AddButton {
+        background-color: #3daebd;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 12px;
+        cursor: pointer;
+      }
     }
     .search {
-      width: 100px;
+      width: 600px;
+      height: 100%;
+      // padding: 10px;
+      .searchTerm {
+        width: 100%;
+        border: 2px solid #aebabb;
+        // border-right: none;
+        padding: 5px;
+        height: 44px;
+        border-radius: 5px 0 0 5px;
+        outline: none;
+        color: #9dbfaf;
+      }
     }
   }
   .list-employees {
@@ -65,5 +86,28 @@
     border-radius: 4px;
     box-sizing: border-box;
     outline: none;
+  }
+  .add-emp-button {
+    background-color: #46ad63;
+    border: none;
+    color: white;
+    padding: 7px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    cursor: pointer;
+  }
+  .cancel-emp-button {
+    background-color: #ec1739;
+    border: none;
+    color: white;
+    padding: 7px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    cursor: pointer;
+    margin-right: 20px;
   }
 }
