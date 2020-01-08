@@ -50,24 +50,28 @@
     td,
     th {
       border: 1px solid #dddddd;
-      text-align: left;
+      text-align: center;
       padding: 8px;
-      width: 100px;
+      min-width: 30px;
+      max-width: 40px;
       height: 50px;
     }
-    td:first-child {
-      width: 20px;
-    }
+
     tr:nth-child(even) {
       background-color: #dddddd;
+    }
+    th:first-child {
+      width: 30px;
     }
     th:last-child {
       width: 180px;
     }
+    tr {
+      text-align: center;
+    }
   }
-  input[type='text'],
-  select {
-    width: 70px;
+  input[type='text'] {
+    width: 100px;
     padding: 6px 10px;
     // margin: 4px 0;
     display: inline-block;
@@ -76,8 +80,7 @@
     box-sizing: border-box;
     outline: none;
   }
-  input[type='number'],
-  select {
+  input[type='number'] {
     width: 70px;
     padding: 6px 10px;
     // margin: 4px 0;
@@ -97,6 +100,7 @@
     display: inline-block;
     font-size: 12px;
     cursor: pointer;
+    margin-right: 20px;
   }
   .cancel-emp-button {
     background-color: #ec1739;
@@ -108,6 +112,5 @@
     display: inline-block;
     font-size: 12px;
     cursor: pointer;
-    margin-right: 20px;
   }
 }

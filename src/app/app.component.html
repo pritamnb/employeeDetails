@@ -87,8 +87,8 @@
         <td><input type="text" [(ngModel)]="city" /></td>
         <td><input type="text" [(ngModel)]="address1" /></td>
         <td><input type="text" [(ngModel)]="address2" /></td>
-        <td><input type="text" [(ngModel)]="postalCode" /></td>
-        <td><button class="cancel-emp-button" (click)="onAdd(empLength + 1)">Add</button> <button class="add-emp-button"
+        <td><input type="number" [(ngModel)]="postalCode" /></td>
+        <td><button class="add-emp-button" (click)="onAdd(empLength + 1)">Add</button> <button class="cancel-emp-button"
             (click)="onCancelEntry()">Cancel</button></td>
       </ng-container>
     </table>

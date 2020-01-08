@@ -30,8 +30,8 @@ export class AppComponent implements OnInit {
       this.employeeData = data['data'];
       console.log('subscribed employee data ---:', this.employeeData);
       this.filteredOptions = this.employeeData;
+      this.empLength = this.filteredOptions['length'];
 
-      this.empLength = this.employeeData.length;
     });
     this.searchNameCity.valueChanges.subscribe((res) => {
       this.filteredOptions = this._filter(res);
@@ -42,6 +42,7 @@ export class AppComponent implements OnInit {
 
   }
   ngOnInit() {
+
   }
 
   private _filter(value: string) {
@@ -72,9 +73,12 @@ export class AppComponent implements OnInit {
     const list = this.employeeData.map((emp) => emp.id === id);
     this.enableEditIndex = null;
     // console.log(list);
+
   }
   onAddEntry() {
     this.addEntry = true;
+    this.empLength = this.filteredOptions['length'];
+
   }
   onAdd(id) {
     console.log('all Ngmodels', id, this.name, this.phone, this.city, this.address1, this.address2, this.postalCode);
@@ -90,6 +94,8 @@ export class AppComponent implements OnInit {
       }
     });
     this.addEntry = false;
+    this.empLength = this.filteredOptions['length'];
+
   }
   onCancelEntry() {
     this.addEntry = false;
