@@ -20,65 +20,104 @@
         <th>Edit</th>
       </tr>
       <tr *ngFor="let emp of filteredOptions ; let  i=index">
-        <td>{{emp.id}}</td>
 
-        <td *ngIf="enableEditIndex != i">{{emp.name}}</td>
-        <ng-container>
-          <td *ngIf="enableEdit && enableEditIndex == i">
-            <input type="text" [(ngModel)]="emp.name" />
+        <ng-container [formGroup]="empDetailsGroup" autocomplete="off">
+          <td>{{emp.id}}</td>
+
+          <td *ngIf="enableEditIndex != i">{{emp.name}}</td>
+          <ng-container>
+            <td *ngIf="enableEdit && enableEditIndex == i">
+              <input type="text" formControlName="name" [(ngModel)]="emp.name" />
+              <br>
+              <span class="error-message" *ngIf="
+            empDetailsGroup.get('name').invalid &&
+            (empDetailsGroup.get('name').dirty ||
+              empDetailsGroup.get('name').touched)
+            ">Name is required</span>
+            </td>
+          </ng-container>
+
+          <td *ngIf="enableEditIndex != i">{{emp.phone}}</td>
+          <ng-container>
+            <td *ngIf="enableEdit && enableEditIndex == i">
+              <input type="text" formControlName="phone" [(ngModel)]="emp.phone" />
+
+              <br>
+              <span class="error-message" *ngIf="
+            empDetailsGroup.get('phone').invalid &&
+            (empDetailsGroup.get('phone').dirty ||
+              empDetailsGroup.get('phone').touched)
+            ">Invalid Phone Number</span>
+            </td>
+          </ng-container>
+
+          <td *ngIf="enableEditIndex != i">{{emp.address.city}}</td>
+          <ng-container>
+            <td *ngIf="enableEdit && enableEditIndex == i">
+              <input type="text" formControlName="city" [(ngModel)]="emp.address.city" />
+              <br>
+              <span class="error-message" *ngIf="
+            empDetailsGroup.get('city').invalid &&
+            (empDetailsGroup.get('city').dirty ||
+              empDetailsGroup.get('city').touched)
+            ">City is required</span>
+            </td>
+          </ng-container>
+
+          <td *ngIf="enableEditIndex != i">{{emp.address.address_line1}}</td>
+          <ng-container>
+            <td *ngIf="enableEdit && enableEditIndex == i">
+              <input type="text" formControlName="address1" [(ngModel)]="emp.address.address_line1" />
+              <br>
+              <span class="error-message" *ngIf="
+            empDetailsGroup.get('address1').invalid &&
+            (empDetailsGroup.get('address1').dirty ||
+              empDetailsGroup.get('address1').touched)
+            ">Dirty address</span>
+            </td>
+          </ng-container>
+
+
+          <td *ngIf="enableEditIndex != i">{{emp.address.address_line2}}</td>
+          <ng-container>
+            <td *ngIf="enableEdit && enableEditIndex == i">
+              <input type="text" formControlName="address2" [(ngModel)]="emp.address.address_line2" />
+              <br>
+              <span class="error-message" *ngIf="
+              empDetailsGroup.get('address2').invalid &&
+              (empDetailsGroup.get('address2').dirty ||
+                empDetailsGroup.get('address2').touched)
+              ">Dirty address</span>
+            </td>
+          </ng-container>
+
+
+
+          <td *ngIf="enableEditIndex != i"> {{emp.address.postal_code}}</td>
+          <ng-container>
+            <td *ngIf="enableEdit && enableEditIndex == i">
+              <input type="text" formControlName="postalCode" [(ngModel)]="emp.address.postal_code" />
+              <br>
+              <span class="error-message" *ngIf="
+            empDetailsGroup.get('postalCode').invalid &&
+            (empDetailsGroup.get('postalCode').dirty ||
+              empDetailsGroup.get('postalCode').touched)
+            ">Invalid postal code</span>
+            </td>
+          </ng-container>
+
+          <td>
+            <button class="cancel-emp-button" *ngIf="enableEdit && enableEditIndex == i"
+              (click)="enableEdit=false; cancel()">Cancel</button>
+            <button *ngIf="enableEdit && enableEditIndex == i" id="saveBtn"
+              (click)="saveSegment(emp.id,emp.name,emp.phone,emp.address.city,emp.address.address1,emp.address.address2,emp.address.postal_code)"
+              type="submit" class="add-emp-button">Save</button>
+            <a href="#" class="table-row-action edit-action" *ngIf="i != enableEditIndex || enableEditIndex == null"
+              (click)="enableEditMethod($event, i)">
+              edit
+            </a>
           </td>
         </ng-container>
-
-        <td *ngIf="enableEditIndex != i">{{emp.phone}}</td>
-        <ng-container>
-          <td *ngIf="enableEdit && enableEditIndex == i">
-            <input type="text" [(ngModel)]="emp.phone" />
-          </td>
-        </ng-container>
-
-        <td *ngIf="enableEditIndex != i">{{emp.address.city}}</td>
-        <ng-container>
-          <td *ngIf="enableEdit && enableEditIndex == i">
-            <input type="text" [(ngModel)]="emp.address.city" />
-          </td>
-        </ng-container>
-
-        <td *ngIf="enableEditIndex != i">{{emp.address.address_line1}}</td>
-        <ng-container>
-          <td *ngIf="enableEdit && enableEditIndex == i">
-            <input type="text" [(ngModel)]="emp.address.address_line1" />
-          </td>
-        </ng-container>
-
-
-        <td *ngIf="enableEditIndex != i">{{emp.address.address_line2}}</td>
-        <ng-container>
-          <td *ngIf="enableEdit && enableEditIndex == i">
-            <input type="text" [(ngModel)]="emp.address.address_line2" />
-          </td>
-        </ng-container>
-
-
-
-        <td *ngIf="enableEditIndex != i"> {{emp.address.postal_code}}</td>
-        <ng-container>
-          <td *ngIf="enableEdit && enableEditIndex == i">
-            <input type="text" [(ngModel)]="emp.address.postal_code" />
-          </td>
-        </ng-container>
-
-        <td>
-          <button class="cancel-emp-button" *ngIf="enableEdit && enableEditIndex == i"
-            (click)="enableEdit=false; cancel()">Cancel</button>
-          <button *ngIf="enableEdit && enableEditIndex == i" id="saveBtn"
-            (click)="saveSegment(emp.id,emp.name,emp.phone,emp.address.city,emp.address.address1,emp.address.address2,emp.address.postal_code)"
-            type="submit" class="add-emp-button">Save</button>
-          <a href="#" class="table-row-action edit-action" *ngIf="i != enableEditIndex || enableEditIndex == null"
-            (click)="enableEditMethod($event, i)">
-            edit
-          </a>
-        </td>
-
       </tr>
       <ng-container *ngIf="addEntry">
         <ng-container [formGroup]="empDetailsGroup" autocomplete="off">
@@ -137,10 +176,12 @@
             ">Invalid postal code</span>
           </td>
           <td>
+            <button class="cancel-emp-button" (click)="onCancelEntry()">
+              Cancel
+            </button>
             <button class="add-emp-button" [disabled]="empDetailsGroup.invalid" (click)="onAdd(empLength+ 1)">
               Add
             </button>
-            <button class="cancel-emp-button" (click)="onCancelEntry()">Cancel</button>
           </td>
         </ng-container>
       </ng-container>

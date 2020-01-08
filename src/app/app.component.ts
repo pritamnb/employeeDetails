@@ -68,6 +68,8 @@ export class AppComponent implements OnInit {
         ]),
       });
     });
+    // edit form of an employee
+
     // search by name or city using form group
     this.searchNameCity.valueChanges.subscribe((res) => {
       this.filteredOptions = this._filter(res);
@@ -95,6 +97,9 @@ export class AppComponent implements OnInit {
   enableEditMethod(e, i) {
     this.enableEdit = true;
     this.enableEditIndex = i;
+    if (this.addEntry === true) {
+      this.addEntry = false;
+    }
     console.log(i, e);
   }
 
