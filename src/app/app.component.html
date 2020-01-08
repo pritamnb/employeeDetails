@@ -81,15 +81,68 @@
 
       </tr>
       <ng-container *ngIf="addEntry">
-        <td>{{empLength + 1}}</td>
-        <td><input type="text" [(ngModel)]="name" /></td>
-        <td><input type="number" [(ngModel)]="phone" /></td>
-        <td><input type="text" [(ngModel)]="city" /></td>
-        <td><input type="text" [(ngModel)]="address1" /></td>
-        <td><input type="text" [(ngModel)]="address2" /></td>
-        <td><input type="number" [(ngModel)]="postalCode" /></td>
-        <td><button class="add-emp-button" (click)="onAdd(empLength + 1)">Add</button> <button class="cancel-emp-button"
-            (click)="onCancelEntry()">Cancel</button></td>
+        <ng-container [formGroup]="empDetailsGroup" autocomplete="off">
+          <td>{{empLength + 1}}</td>
+
+          <td><input type="text" formControlName="name" /><br>
+            <span class="error-message" *ngIf="
+            empDetailsGroup.get('name').invalid &&
+            (empDetailsGroup.get('name').dirty ||
+              empDetailsGroup.get('name').touched)
+            ">Name is required</span>
+          </td>
+
+          <td><input type="text" formControlName="phone" />
+            <br>
+            <span class="error-message" *ngIf="
+            empDetailsGroup.get('phone').invalid &&
+            (empDetailsGroup.get('phone').dirty ||
+              empDetailsGroup.get('phone').touched)
+            ">Invalid Phone Number</span>
+          </td>
+
+          <td><input type="text" formControlName="city" />
+            <br>
+            <span class="error-message" *ngIf="
+            empDetailsGroup.get('city').invalid &&
+            (empDetailsGroup.get('city').dirty ||
+              empDetailsGroup.get('city').touched)
+            ">City is required</span>
+          </td>
+
+          <td><input type="text" formControlName="address1" />
+            <br>
+            <span class="error-message" *ngIf="
+            empDetailsGroup.get('address1').invalid &&
+            (empDetailsGroup.get('address1').dirty ||
+              empDetailsGroup.get('address1').touched)
+            ">Dirty address</span>
+          </td>
+
+          <td><input type="text" formControlName="address2" />
+            <br>
+            <span class="error-message" *ngIf="
+            empDetailsGroup.get('address2').invalid &&
+            (empDetailsGroup.get('address2').dirty ||
+              empDetailsGroup.get('address2').touched)
+            ">Dirty address</span>
+          </td>
+
+          <td><input type="text" formControlName="postalCode" />
+            <br>
+            <span class="error-message" *ngIf="
+            empDetailsGroup.get('postalCode').invalid &&
+            (empDetailsGroup.get('postalCode').dirty ||
+              empDetailsGroup.get('postalCode').touched)
+            ">Invalid postal code</span>
+          </td>
+          <td>
+            <button class="add-emp-button" [disabled]="empDetailsGroup.invalid" (click)="onAdd(empLength+ 1)">
+              Add
+            </button>
+            <button class="cancel-emp-button" (click)="onCancelEntry()">Cancel</button>
+          </td>
+        </ng-container>
       </ng-container>
     </table>
 </div>

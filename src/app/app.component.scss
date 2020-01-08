@@ -112,5 +112,11 @@
     display: inline-block;
     font-size: 12px;
     cursor: pointer;
+    margin-right: 20px;
   }
+}
+.error-message {
+  font-size: 10px;
+  padding-top: 7px;
+  color: red;
 }

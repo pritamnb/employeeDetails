@@ -1,7 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { MainService } from './shared/services/main.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import {
+  FormGroup,
+  FormBuilder,
+  FormControl,
+  Validators
+} from '@angular/forms';
 import { Observable } from 'rxjs';
+import { VALIDATORS } from './app.constant';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +20,7 @@ export class AppComponent implements OnInit {
   enableEdit = false;
   enableEditIndex = null;
   empLength: any;
+  empDetailsGroup: FormGroup;
   searchNameCity = new FormControl();
   nameCity: any; // ngmodel for searching
   // ngModules
@@ -24,15 +31,44 @@ export class AppComponent implements OnInit {
   address2: any;
   postalCode: any;
   filteredOptions: Observable<any>;
-  constructor(private mainService: MainService) {
+  constructor(
+    private mainService: MainService,
+    private fb: FormBuilder
+  ) {
     this.mainService.getJSON().subscribe(data => {
-      const employees = data.data;
       this.employeeData = data['data'];
       console.log('subscribed employee data ---:', this.employeeData);
       this.filteredOptions = this.employeeData;
       this.empLength = this.filteredOptions['length'];
-
+      // form builder
+      this.empDetailsGroup = this.fb.group({
+        name: new FormControl(null, [
+          Validators.required,
+          Validators.pattern(VALIDATORS.NAME)
+        ]),
+        phone: new FormControl(null, [
+          Validators.required,
+          Validators.pattern(VALIDATORS.PHONE)
+        ]),
+        city: new FormControl(null, [
+          Validators.required,
+          Validators.pattern(VALIDATORS.CITY)
+        ]),
+        address1: new FormControl(null, [
+          Validators.required,
+          Validators.pattern(VALIDATORS.ADDRESS)
+        ]),
+        address2: new FormControl(null, [
+          Validators.required,
+          Validators.pattern(VALIDATORS.ADDRESS)
+        ]),
+        postalCode: new FormControl(null, [
+          Validators.required,
+          Validators.pattern(VALIDATORS.POSTAL_CODE)
+        ]),
+      });
     });
+    // search by name or city using form group
     this.searchNameCity.valueChanges.subscribe((res) => {
       this.filteredOptions = this._filter(res);
       console.log('====================================');
@@ -76,29 +112,32 @@ export class AppComponent implements OnInit {
 
   }
   onAddEntry() {
+    console.log('Add entry pressed');
     this.addEntry = true;
+    if (this.addEntry === true) {
+      this.cancel();
+    }
     this.empLength = this.filteredOptions['length'];
-
   }
   onAdd(id) {
-    console.log('all Ngmodels', id, this.name, this.phone, this.city, this.address1, this.address2, this.postalCode);
+    console.log('FORM VALUES', this.empDetailsGroup.value);
     this.employeeData.push({
       id,
-      name: this.name,
-      phone: this.phone,
+      name: this.empDetailsGroup.value.name,
+      phone: this.empDetailsGroup.value.phone,
       address: {
-        city: this.city,
-        address_line1: this.address1,
-        address_line2: this.address2,
-        postal_code: this.postalCode
+        city: this.empDetailsGroup.value.city,
+        address_line1: this.empDetailsGroup.value.address1,
+        address_line2: this.empDetailsGroup.value.address2,
+        postal_code: this.empDetailsGroup.value.postalCode
       }
     });
     this.addEntry = false;
     this.empLength = this.filteredOptions['length'];
-
+    this.empDetailsGroup.reset();
   }
   onCancelEntry() {
     this.addEntry = false;
-
   }
+
 }
