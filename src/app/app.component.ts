@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { MainService } from './shared/services/main.service';
 import {
   FormGroup,
@@ -6,7 +6,7 @@ import {
   FormControl,
   Validators
 } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { VALIDATORS } from './app.constant';
 
 @Component({
@@ -15,6 +15,7 @@ import { VALIDATORS } from './app.constant';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+  EmployeeDetailsSubscription: Subscription;
   employeeData: any;
   addEntry = false;
   enableEdit = false;
@@ -33,47 +34,53 @@ export class AppComponent implements OnInit {
   filteredOptions: Observable<any>;
   constructor(
     private mainService: MainService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private changeDetector: ChangeDetectorRef
   ) {
-    this.mainService.getJSON().subscribe(data => {
-      this.employeeData = data['data'];
-      console.log('subscribed employee data ---:', this.employeeData);
+    this.mainService.getJSON().subscribe(res => {
+      console.log('service called');
+      // this.mainService.setAllEmployees(res['data']);
+      this.employeeData = res['data'];
       this.filteredOptions = this.employeeData;
-      // this.empLength = this.employeeData.length;
-      // form builder
-      this.empDetailsGroup = this.fb.group({
-        name: new FormControl(null, [
-          Validators.required,
-          Validators.pattern(VALIDATORS.NAME)
-        ]),
-        phone: new FormControl(null, [
-          Validators.required,
-          Validators.pattern(VALIDATORS.PHONE)
-        ]),
-        city: new FormControl(null, [
-          Validators.required,
-          Validators.pattern(VALIDATORS.CITY)
-        ]),
-        address1: new FormControl(null, [
-          Validators.required,
-          Validators.pattern(VALIDATORS.ADDRESS)
-        ]),
-        address2: new FormControl(null, [
-          Validators.required,
-          Validators.pattern(VALIDATORS.ADDRESS)
-        ]),
-        postalCode: new FormControl(null, [
-          Validators.required,
-          Validators.pattern(VALIDATORS.POSTAL_CODE)
-        ]),
-      });
     });
-    // edit form of an employee
+    // this.mainService._allEmployees$.subscribe(res => {
+    //   console.log('subscriber', res);
+    //   this.employeeData = res;
+    //   console.log('After subscribed', this.employeeData);
+    //   this.changeDetector.detectChanges();
+    // }
+    // );
+
+    this.empDetailsGroup = this.fb.group({
+      name: new FormControl(null, [
+        Validators.required,
+        Validators.pattern(VALIDATORS.NAME)
+      ]),
+      phone: new FormControl(null, [
+        Validators.required,
+        Validators.pattern(VALIDATORS.PHONE)
+      ]),
+      city: new FormControl(null, [
+        Validators.required,
+        Validators.pattern(VALIDATORS.CITY)
+      ]),
+      address1: new FormControl(null, [
+        Validators.required,
+        Validators.pattern(VALIDATORS.ADDRESS)
+      ]),
+      address2: new FormControl(null, [
+        Validators.required,
+        Validators.pattern(VALIDATORS.ADDRESS)
+      ]),
+      postalCode: new FormControl(null, [
+        Validators.required,
+        Validators.pattern(VALIDATORS.POSTAL_CODE)
+      ]),
+    });
 
 
   }
   ngOnInit() {
-
   }
 
 
@@ -102,10 +109,12 @@ export class AppComponent implements OnInit {
   onAddEntry() {
     console.log('Add entry pressed');
     this.addEntry = true;
-    if (this.addEntry === true) {
-      this.cancel();
-    }
+    // if (this.addEntry === true) {
+    //   this.cancel();
+    // }
     this.empLength = this.employeeData.length;
+    this.empLength = this.filteredOptions['length'];
+
   }
   onAdd(id) {
     console.log('FORM VALUES', this.empDetailsGroup.value);
@@ -121,12 +130,21 @@ export class AppComponent implements OnInit {
       }
     });
     this.addEntry = false;
-    console.log('added employee', this.employeeData)
+    this.filteredOptions = this.employeeData;
+    console.log('added employee', this.filteredOptions);
+    // this.mainService.setAllEmployees(this.employeeData);
     this.empLength = this.employeeData.length;
+    this.empLength = this.filteredOptions['length'];
+
     // this.empDetailsGroup.reset();
   }
   onCancelEntry() {
     this.addEntry = false;
+  }
+  ngOnDestroy() {
+    if (this.EmployeeDetailsSubscription) {
+      this.EmployeeDetailsSubscription.unsubscribe();
+    }
   }
 
 }

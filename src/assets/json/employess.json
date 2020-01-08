@@ -8,7 +8,7 @@
         "city": "Pune",
         "address_line1": "XYZ road",
         "address_line2": "ABC Building",
-        "postal_code": "12455"
+        "postal_code": "124553"
       }
     },
     {
@@ -19,7 +19,7 @@
         "city": "Pune",
         "address_line1": "PQR road",
         "address_line2": "XYZ Building",
-        "postal_code": "13445"
+        "postal_code": "134452"
       }
     },
     {
@@ -30,7 +30,7 @@
         "city": "Mumbai",
         "address_line1": "ABC road",
         "address_line2": "PQR Building",
-        "postal_code": "14435"
+        "postal_code": "144353"
       }
     }
   ]
