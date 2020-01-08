@@ -4,7 +4,8 @@
       <button class="AddButton" (click)="onAddEntry()">Add Entry</button>
     </div>
     <div class="search">
-      <input type="text" class="searchTerm" placeholder="Search..." [formControl]="searchNameCity">
+      <input type="text" class="searchTerm" placeholder="Search..." [formControl]="searchNameCity"
+        [(ngModel)]="nameCity">
     </div>
   </div>
   <td class="list-employees">
@@ -19,7 +20,7 @@
         <th>Postal Code</th>
         <th>Edit</th>
       </tr>
-      <tr *ngFor="let emp of filteredOptions ; let  i=index">
+      <tr *ngFor="let emp of employeeData | searchFilter: nameCity ; let  i=index">
 
         <ng-container [formGroup]="empDetailsGroup" autocomplete="off">
           <td>{{emp.id}}</td>
@@ -179,7 +180,8 @@
             <button class="cancel-emp-button" (click)="onCancelEntry()">
               Cancel
             </button>
-            <button class="add-emp-button" [disabled]="empDetailsGroup.invalid" (click)="onAdd(empLength+ 1)">
+            <button class="add-emp-button" [disabled]="empDetailsGroup.invalid && empDetailsGroup === null"
+              (click)="onAdd(empLength+ 1)">
               Add
             </button>
           </td>

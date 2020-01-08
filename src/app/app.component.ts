@@ -39,7 +39,7 @@ export class AppComponent implements OnInit {
       this.employeeData = data['data'];
       console.log('subscribed employee data ---:', this.employeeData);
       this.filteredOptions = this.employeeData;
-      this.empLength = this.filteredOptions['length'];
+      // this.empLength = this.employeeData.length;
       // form builder
       this.empDetailsGroup = this.fb.group({
         name: new FormControl(null, [
@@ -70,30 +70,13 @@ export class AppComponent implements OnInit {
     });
     // edit form of an employee
 
-    // search by name or city using form group
-    this.searchNameCity.valueChanges.subscribe((res) => {
-      this.filteredOptions = this._filter(res);
-      console.log('====================================');
-      console.log(this.filteredOptions);
-      console.log('====================================');
-    });
 
   }
   ngOnInit() {
 
   }
 
-  private _filter(value: string) {
-    console.log('value', value);
-    const filterValue = value.toLowerCase();
 
-    // tslint:disable-next-line: max-line-length
-    const filteredCountryName = this.employeeData.filter(emp => emp.name.toLowerCase().indexOf(filterValue) === 0 || emp.address.city.toLowerCase().indexOf(filterValue) === 0);
-    // console.log('filteredCountryName', filteredCountryName.map(emp => emp));
-    // this.employeeData = filteredCountryName.map(emp => emp);
-    return filteredCountryName.map(emp => emp);
-
-  }
   enableEditMethod(e, i) {
     this.enableEdit = true;
     this.enableEditIndex = i;
@@ -122,7 +105,7 @@ export class AppComponent implements OnInit {
     if (this.addEntry === true) {
       this.cancel();
     }
-    this.empLength = this.filteredOptions['length'];
+    this.empLength = this.employeeData.length;
   }
   onAdd(id) {
     console.log('FORM VALUES', this.empDetailsGroup.value);
@@ -138,8 +121,9 @@ export class AppComponent implements OnInit {
       }
     });
     this.addEntry = false;
-    this.empLength = this.filteredOptions['length'];
-    this.empDetailsGroup.reset();
+    console.log('added employee', this.employeeData)
+    this.empLength = this.employeeData.length;
+    // this.empDetailsGroup.reset();
   }
   onCancelEntry() {
     this.addEntry = false;
