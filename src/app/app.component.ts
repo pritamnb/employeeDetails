@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MainService } from './shared/services/main.service';
 import {
   FormGroup,
@@ -22,6 +22,7 @@ export class AppComponent implements OnInit {
   enableEditIndex = null;
   empLength: any;
   empDetailsGroup: FormGroup;
+  EditEmpDetailsGroup: FormGroup;
   searchNameCity = new FormControl();
   nameCity: any; // ngmodel for searching
   // ngModules
@@ -35,21 +36,17 @@ export class AppComponent implements OnInit {
   constructor(
     private mainService: MainService,
     private fb: FormBuilder,
-    private changeDetector: ChangeDetectorRef
   ) {
     this.mainService.getJSON().subscribe(res => {
       console.log('service called');
-      // this.mainService.setAllEmployees(res['data']);
       this.employeeData = res['data'];
-      this.filteredOptions = this.employeeData;
+      this.employeeData.map(emp => {
+        if (!parseInt(emp.phone, 10)) {
+          this.employeeData[emp.id - 1].phone = 'NA';
+        }
+      });
     });
-    // this.mainService._allEmployees$.subscribe(res => {
-    //   console.log('subscriber', res);
-    //   this.employeeData = res;
-    //   console.log('After subscribed', this.employeeData);
-    //   this.changeDetector.detectChanges();
-    // }
-    // );
+
 
     this.empDetailsGroup = this.fb.group({
       name: new FormControl(null, [
@@ -78,7 +75,34 @@ export class AppComponent implements OnInit {
       ]),
     });
 
+    // edit employee details
 
+    this.EditEmpDetailsGroup = this.fb.group({
+      name: new FormControl(null, [
+        Validators.required,
+        Validators.pattern(VALIDATORS.NAME)
+      ]),
+      phone: new FormControl(null, [
+        Validators.required,
+        Validators.pattern(VALIDATORS.PHONE)
+      ]),
+      city: new FormControl(null, [
+        Validators.required,
+        Validators.pattern(VALIDATORS.CITY)
+      ]),
+      address1: new FormControl(null, [
+        Validators.required,
+        Validators.pattern(VALIDATORS.ADDRESS)
+      ]),
+      address2: new FormControl(null, [
+        Validators.required,
+        Validators.pattern(VALIDATORS.ADDRESS)
+      ]),
+      postalCode: new FormControl(null, [
+        Validators.required,
+        Validators.pattern(VALIDATORS.POSTAL_CODE)
+      ]),
+    })
   }
   ngOnInit() {
   }
@@ -93,7 +117,7 @@ export class AppComponent implements OnInit {
     console.log(i, e);
   }
 
-  cancel() {
+  cancelEdit() {
     console.log('cancel');
     this.enableEditIndex = null;
 
@@ -102,18 +126,17 @@ export class AppComponent implements OnInit {
   saveSegment(id, name, phone, city, address1, address2, postal_code) {
     console.log('changed', id, name, phone, city, address1, address2, postal_code);
     const list = this.employeeData.map((emp) => emp.id === id);
-    this.enableEditIndex = null;
     // console.log(list);
 
   }
-  onAddEntry() {
+  onAddEntryButton() {
     console.log('Add entry pressed');
     this.addEntry = true;
-    // if (this.addEntry === true) {
-    //   this.cancel();
-    // }
+    if (this.addEntry === true) {
+      this.enableEditIndex = null;
+
+    }
     this.empLength = this.employeeData.length;
-    this.empLength = this.filteredOptions['length'];
 
   }
   onAdd(id) {
@@ -132,19 +155,17 @@ export class AppComponent implements OnInit {
     this.addEntry = false;
     this.filteredOptions = this.employeeData;
     console.log('added employee', this.filteredOptions);
-    // this.mainService.setAllEmployees(this.employeeData);
+    this.empDetailsGroup.reset();
     this.empLength = this.employeeData.length;
-    this.empLength = this.filteredOptions['length'];
 
-    // this.empDetailsGroup.reset();
   }
   onCancelEntry() {
     this.addEntry = false;
   }
-  ngOnDestroy() {
-    if (this.EmployeeDetailsSubscription) {
-      this.EmployeeDetailsSubscription.unsubscribe();
-    }
+  onKeyPress() {
+    // defunctioning edit and add while searching
+    this.addEntry = false;
+    this.enableEditIndex = null;
   }
 
 }

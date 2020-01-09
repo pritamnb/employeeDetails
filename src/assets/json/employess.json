@@ -32,6 +32,17 @@
         "address_line2": "PQR Building",
         "postal_code": "144353"
       }
+    },
+    {
+      "id": 4,
+      "name": "Justin",
+      "phone": "9933838388",
+      "address": {
+        "city": "Delhi",
+        "address_line1": "ABC road",
+        "address_line2": "PQR Building",
+        "postal_code": "144353"
+      }
     }
   ]
 }
