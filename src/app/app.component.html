@@ -179,8 +179,7 @@
             <button class="cancel-emp-button" (click)="onCancelEntry()">
               Cancel
             </button>
-            <button class="add-emp-button" [disabled]="empDetailsGroup.invalid && empDetailsGroup === null"
-              (click)="onAdd(empLength+ 1)">
+            <button class="add-emp-button" [disabled]="empDetailsGroup.invalid " (click)="onAdd(empLength+ 1)">
               Add
             </button>
           </td>
