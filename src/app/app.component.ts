@@ -126,6 +126,8 @@ export class AppComponent implements OnInit {
   saveSegment(id, name, phone, city, address1, address2, postal_code) {
     console.log('changed', id, name, phone, city, address1, address2, postal_code);
     const list = this.employeeData.map((emp) => emp.id === id);
+    this.enableEditIndex = null;
+
     // console.log(list);
 
   }
