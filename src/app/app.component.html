@@ -19,7 +19,7 @@
         <th>Postal Code</th>
         <th>Edit</th>
       </tr>
-      <tr *ngFor="let emp of filteredOptions && employeeData | searchFilter: nameCity ; let  i=index">
+      <tr *ngFor="let emp of filteredOptions && employeeData; let  i=index">
 
         <ng-container [formGroup]="empDetailsGroup" autocomplete="off">
           <td>{{emp.id}}</td>
