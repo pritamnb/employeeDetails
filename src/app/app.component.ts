@@ -38,7 +38,6 @@ export class AppComponent implements OnInit {
     private fb: FormBuilder,
   ) {
     this.mainService.getJSON().subscribe(res => {
-      console.log('service called');
       this.employeeData = res['data'];
       this.employeeData.map(emp => {
         if (!parseInt(emp.phone, 10)) {
@@ -114,25 +113,21 @@ export class AppComponent implements OnInit {
     if (this.addEntry === true) {
       this.addEntry = false;
     }
-    console.log(i, e);
+
   }
 
   cancelEdit() {
-    console.log('cancel');
     this.enableEditIndex = null;
 
   }
 
   saveSegment(id, name, phone, city, address1, address2, postal_code) {
-    console.log('changed', id, name, phone, city, address1, address2, postal_code);
     const list = this.employeeData.map((emp) => emp.id === id);
     this.enableEditIndex = null;
 
-    // console.log(list);
 
   }
   onAddEntryButton() {
-    console.log('Add entry pressed');
     this.addEntry = true;
     if (this.addEntry === true) {
       this.enableEditIndex = null;
@@ -142,7 +137,6 @@ export class AppComponent implements OnInit {
 
   }
   onAdd(id) {
-    console.log('FORM VALUES', this.empDetailsGroup.value);
     this.employeeData.push({
       id,
       name: this.empDetailsGroup.value.name,
@@ -156,7 +150,6 @@ export class AppComponent implements OnInit {
     });
     this.addEntry = false;
     this.filteredOptions = this.employeeData;
-    console.log('added employee', this.filteredOptions);
     this.empDetailsGroup.reset();
     this.empLength = this.employeeData.length;
 
