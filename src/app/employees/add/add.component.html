@@ -1,0 +1,96 @@
+<div class="container">
+  <ng-container [formGroup]="empDetailsGroup">
+    <div class="row">
+      <div class="col-25">
+        <label for="fname">Name</label>
+      </div>
+      <div class="col-75">
+        <input type="text" formControlName="name" placeholder="Your name.." /><br>
+        <span class="error-message" *ngIf="
+            empDetailsGroup.get('name').invalid &&
+            (empDetailsGroup.get('name').dirty ||
+              empDetailsGroup.get('name').touched)
+            ">Name is required</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+        <label for="lname">Phone</label>
+      </div>
+      <div class="col-75">
+        <input type="text" formControlName="phone" placeholder="Your phone.." />
+        <br>
+        <span class="error-message" *ngIf="
+            empDetailsGroup.get('phone').invalid &&
+            (empDetailsGroup.get('phone').dirty ||
+              empDetailsGroup.get('phone').touched)
+            ">Invalid Phone Number</span></div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+        <label for="lname">City</label>
+      </div>
+      <div class="col-75">
+        <input type="text" formControlName="city" placeholder="Your city.." />
+        <br>
+        <span class="error-message" *ngIf="
+            empDetailsGroup.get('city').invalid &&
+            (empDetailsGroup.get('city').dirty ||
+              empDetailsGroup.get('city').touched)
+            ">City is required</span></div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+        <label for="subject">Address Line 1</label>
+      </div>
+      <div class="col-75">
+        <textarea id="subject" name="subject" placeholder="Your address line 1..." style="height:200px"
+          formControlName="address1"></textarea>
+        <br>
+        <span class="error-message" *ngIf="
+            empDetailsGroup.get('address1').invalid &&
+            (empDetailsGroup.get('address1').dirty ||
+              empDetailsGroup.get('address1').touched)
+            ">Dirty address</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+        <label for="subject">Address Line 2</label>
+      </div>
+      <div class="col-75">
+        <textarea id="subject" name="subject" placeholder="Your address line 2..." style="height:200px"
+          formControlName="address2"></textarea>
+        <br>
+        <span class="error-message" *ngIf="
+            empDetailsGroup.get('address2').invalid &&
+            (empDetailsGroup.get('address2').dirty ||
+              empDetailsGroup.get('address2').touched)
+            ">Dirty address</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+        <label for="lname">Postal Code</label>
+      </div>
+      <div class="col-75">
+        <input type="text" id="lname" name="lastname" placeholder="Your postal code..." formControlName="postalCode" />
+        <br>
+        <span class="error-message" *ngIf="
+            empDetailsGroup.get('postalCode').invalid &&
+            (empDetailsGroup.get('postalCode').dirty ||
+              empDetailsGroup.get('postalCode').touched)
+            ">Invalid postal code</span>
+      </div>
+    </div>
+    <div class="submit-row">
+      <!-- <input type="submit" value="Submit"> -->
+      <button class="cancel-emp-button" (click)="onCancelEntry()">
+        Cancel
+      </button>
+      <button class="add-emp-button" [disabled]="empDetailsGroup.invalid " (click)="onAddEntry()">
+        Add
+      </button>
+    </div>
+  </ng-container>
+</div>
