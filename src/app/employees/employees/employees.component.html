@@ -1,0 +1,52 @@
+<div class="main-container">
+  <div class="search-add">
+    <div class="add-entry">
+      <a class="AddButton" [routerLink]="['/employees/add']">Add Entry</a>
+    </div>
+    <div class=" search">
+      <input type="text" class="searchTerm" placeholder="Search..." [(ngModel)]="nameCity" (keypress)="onKeyPress()">
+    </div>
+  </div>
+  <td class="list-employees">
+    <table>
+      <tr>
+        <ng-container *ngFor="let item of column;let i=index">
+          <th> {{item.label}} </th>
+        </ng-container>
+        <!-- <th>Id</th>
+        <th>Name</th>
+        <th>Phone</th>
+        <th>City</th>
+        <th>Address Line 1</th>
+        <th>Address Line 2</th>
+        <th>Postal Code</th>
+        <th>Edit</th> -->
+      </tr>
+      <tr *ngFor="let emp of employeeData | searchFilter: nameCity ; let  i=index">
+
+        <ng-container [formGroup]="EditEmpDetailsGroup" autocomplete="off">
+          <td>{{emp.id}}</td>
+
+          <td>{{emp.name}}</td>
+
+          <td>{{emp.phone}}</td>
+
+          <td>{{emp.address.city}}</td>
+
+          <td>{{emp.address.address_line1}}</td>
+
+          <td>{{emp.address.address_line2}}</td>
+
+          <td> {{emp.address.postal_code}}</td>
+
+          <td>
+            <a class="table-row-action edit-action" [routerLink]="['/employees',i+1,'edit']">
+              edit
+            </a>
+          </td>
+        </ng-container>
+      </tr>
+
+    </table>
+</div>
+<router-outlet></router-outlet>
