@@ -77,9 +77,7 @@ export class EmployeesComponent implements OnInit {
       },
     ];
     const CheckEmpData = this.mainService._allEmployeeDetails.subscribe((emp) => {
-      console.log('subscribed', emp);
       if (emp['length'] > 0) {
-        console.log('employee data exist');
         this.employeeData = emp;
       } else {
         this.mainService.getJSON().subscribe(res => {
@@ -147,60 +145,8 @@ export class EmployeesComponent implements OnInit {
   }
 
 
-  enableEditMethod(e, i) {
-    // this.enableEdit = true;
-    // this.enableEditIndex = i;
-    // if (this.addEntry === true) {
-    //   this.addEntry = false;
-    // }
-    // this.router.navigate(['/employees', i + 1, 'edit']);
-  }
-
-  cancelEdit() {
-    this.enableEditIndex = null;
-  }
-
-  saveSegment(id, name, phone, city, address1, address2, postal_code) {
-    const list = this.employeeData.map((emp) => emp.id === id);
-    this.enableEditIndex = null;
-
-
-  }
-  onAddEntryButton() {
-    this.router.navigate(['/add']);
-    // this.addEntry = true;
-    // if (this.addEntry === true) {
-    //   this.enableEditIndex = null;
-
-    // }
-    // this.empLength = this.employeeData.length;
-
-  }
-  onAdd(id) {
-    this.employeeData.push({
-      id,
-      name: this.empDetailsGroup.value.name,
-      phone: this.empDetailsGroup.value.phone,
-      address: {
-        city: this.empDetailsGroup.value.city,
-        address_line1: this.empDetailsGroup.value.address1,
-        address_line2: this.empDetailsGroup.value.address2,
-        postal_code: this.empDetailsGroup.value.postalCode
-      }
-    });
-    this.addEntry = false;
-    this.filteredOptions = this.employeeData;
-    this.empDetailsGroup.reset();
-    this.empLength = this.employeeData.length;
-
-  }
   onCancelEntry() {
     this.addEntry = false;
-  }
-  onKeyPress() {
-    // defunctioning edit and add while searching
-    this.addEntry = false;
-    this.enableEditIndex = null;
   }
 
 

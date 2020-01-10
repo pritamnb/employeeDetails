@@ -77,7 +77,8 @@
         <label for="lname">Postal Code</label>
       </div>
       <div class="col-75">
-        <input type="number" class="inpute-number" id="lname" name="lastname" placeholder="Your postal code..." formControlName="postalCode" />
+        <input type="number" class="inpute-number" id="lname" name="lastname" placeholder="Your postal code..."
+          formControlName="postalCode" />
         <br>
         <span class="error-message" *ngIf="
             empDetailsGroup.get('postalCode').invalid &&
@@ -87,7 +88,6 @@
       </div>
     </div>
     <div class="submit-row">
-      <!-- <input type="submit" value="Submit"> -->
       <button class="cancel-emp-button" (click)="onCancelEntry()">
         Cancel
       </button>

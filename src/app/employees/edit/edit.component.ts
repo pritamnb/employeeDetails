@@ -63,14 +63,11 @@ export class EditComponent implements OnInit {
 
     this.mainService._allEmployeeDetails.subscribe((emp) => {
       this.employees = emp;
-      console.log(this.employees);
       emp.map(employee => {
         if (employee.id === this.paramId) {
-          console.log('related to param', employee);
           this.toEdit = employee;
         }
       });
-      console.log('to edit employees', this.employees);
     });
     this.empDetailsGroup.setValue({
       name: this.toEdit.name,
@@ -86,7 +83,6 @@ export class EditComponent implements OnInit {
     this.router.navigate(['employees']);
   }
   onEditEntry() {
-    console.log(this.empDetailsGroup.value);
     this.employees.map(emp => {
       if (emp.id === this.paramId) {
         emp.name = this.empDetailsGroup.value.name,
@@ -97,7 +93,6 @@ export class EditComponent implements OnInit {
           emp.address.postal_code = this.empDetailsGroup.value.postalCode;
       }
     });
-    console.log(this.employees);
 
     this.mainService.setAllEmployees(this.employees);
     this.empDetailsGroup.reset();

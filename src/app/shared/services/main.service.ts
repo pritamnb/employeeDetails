@@ -13,7 +13,6 @@ export class MainService {
     return this.http.get('../assets/json/employess.json');
   }
   setAllEmployees(data) {
-    console.log(data);
     this.allEmployeeDetailsDataSource.next(data);
   }
 }

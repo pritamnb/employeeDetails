@@ -23,6 +23,7 @@ export class AddComponent implements OnInit {
     private mainService: MainService,
     private router: Router
   ) {
+
     this.empDetailsGroup = this.fb.group({
       name: new FormControl(null, [
         Validators.required,
@@ -46,22 +47,17 @@ export class AddComponent implements OnInit {
       ]),
     });
     this.employees = [];
-    // getting employees data
     this.mainService._allEmployeeDetails.subscribe((emp) => {
       this.employees = emp;
-      console.log('Esisting employees', this.employees);
     });
   }
 
   ngOnInit() {
   }
   onCancelEntry() {
-    console.log('On cancel new Entry');
-    // this.addEntry = false;
     this.router.navigate(['employees']);
   }
   onAddEntry() {
-    console.log(this.empDetailsGroup.value);
     this.employees.push({
       id: this.employees['length'] + 1,
       name: this.empDetailsGroup.value.name,
