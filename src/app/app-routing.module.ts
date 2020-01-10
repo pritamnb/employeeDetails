@@ -5,6 +5,7 @@ import { AddComponent } from './employees/add/add.component';
 import { EditComponent } from './employees/edit/edit.component';
 
 
+
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'employees' },
   {
@@ -21,7 +22,6 @@ const routes: Routes = [
     component: EditComponent,
   }
 ];
-
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
