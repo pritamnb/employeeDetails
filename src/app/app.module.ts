@@ -9,6 +9,7 @@ import { SearchFilterPipe } from './shared/pipes/search-filter.pipe';
 import { EmployeesComponent } from './employees/employees/employees.component';
 import { AddComponent } from './employees/add/add.component';
 import { EditComponent } from './employees/edit/edit.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { EditComponent } from './employees/edit/edit.component';
     EmployeesComponent,
     AddComponent,
     EditComponent,
-    SearchFilterPipe
+    SearchFilterPipe,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

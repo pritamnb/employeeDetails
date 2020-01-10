@@ -1,3 +1,6 @@
+<div class="component-header">
+  <span class="title">Edit Employee</span>
+</div>
 <div class="container">
   <ng-container [formGroup]="empDetailsGroup">
     <div class="row">
@@ -18,7 +21,7 @@
         <label for="lname">Phone</label>
       </div>
       <div class="col-75">
-        <input type="text" formControlName="phone" placeholder="Your phone.." />
+        <input type="number" class="inpute-number" formControlName="phone" placeholder="Your phone.." />
         <br>
         <span class="error-message" *ngIf="
             empDetailsGroup.get('phone').invalid &&
@@ -74,7 +77,7 @@
         <label for="lname">Postal Code</label>
       </div>
       <div class="col-75">
-        <input type="text" id="lname" name="lastname" placeholder="Your postal code..." formControlName="postalCode" />
+        <input type="number" class="inpute-number" id="lname" name="lastname" placeholder="Your postal code..." formControlName="postalCode" />
         <br>
         <span class="error-message" *ngIf="
             empDetailsGroup.get('postalCode').invalid &&

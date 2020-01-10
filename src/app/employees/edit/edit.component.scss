@@ -1,7 +1,16 @@
 * {
   box-sizing: border-box;
 }
-
+.component-header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+  .title {
+    font-size: 20px;
+  }
+}
 input[type='text'],
 select,
 textarea {
@@ -98,4 +107,16 @@ input[type='submit']:hover {
   font-size: 14px;
   color: red;
   padding-left: 16px;
+}
+.inpute-number {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
